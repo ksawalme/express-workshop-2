@@ -14,11 +14,30 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 app.get("/", (req, res) => {
-  res.render("index");
-
+  res.render("index", {
+    title: "Khaled Profile" // insert your name instead
+  });
 });
 
+app.get("/admin", (req, res) => {
+  res.render("admin",{
+    title: "Admin page" // insert your name instead
 
+  });
+});
+app.get("/my-cv", (req, res) => {
+  res.render("my-cv",{
+    title: "My Refrance" // insert your name instead
+
+  });
+});
+app.get("/contact", (req, res) => {
+  res.render("contact",{
+    title: "Call Me 07492936847" // insert your name instead
+
+
+  });
+});
 
 // The extensions 'html' allows us to serve file without adding .html at the end 
 // i.e /my-cv will server /my-cv.html
