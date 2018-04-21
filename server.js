@@ -1,4 +1,3 @@
-
 const exphbs = require("express-handlebars");
 
 
@@ -20,19 +19,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin",{
+  res.render("admin", {
     title: "Admin page" // insert your name instead
 
   });
 });
 app.get("/my-cv", (req, res) => {
-  res.render("my-cv",{
+  res.render("my-cv", {
     title: "My Refrance" // insert your name instead
 
   });
 });
 app.get("/contact", (req, res) => {
-  res.render("contact",{
+  res.render("contact", {
     title: "Call Me 07492936847" // insert your name instead
 
 
@@ -41,11 +40,10 @@ app.get("/contact", (req, res) => {
 
 // The extensions 'html' allows us to serve file without adding .html at the end 
 // i.e /my-cv will server /my-cv.html
-app.use(express.static("public", {'extensions': ['html']}));
+app.use(express.static("public", { 'extensions': ['html'] }));
 
 
 // what does this line mean: process.env.PORT || 3000
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server is listening on port 3000. Ready to accept requests!");
 });
-
