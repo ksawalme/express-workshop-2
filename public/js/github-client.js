@@ -38,3 +38,8 @@ var myButton = document.querySelector('#btnGetRepos');
 myButton.addEventListener('click', function() {
     loadRepos('CodeYourFuture');
 });
+
+var myButton = document.querySelector('#btnGetPosts');
+myButton.addEventListener('click', function(req,res) {
+  res.sendFile(__dirname + '/data/posts.json')
+});
