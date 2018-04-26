@@ -1,10 +1,10 @@
 const exphbs = require("express-handlebars");
+const fs = require("fs")
 
 const express = require("express");
 const app = express();
 const router = express.Router();
-var path    = require("path");
-
+const bodyParser = require('body-parser')
 // Then these two lines after you initialise your express app
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
     title: "Khaled Profile" // insert your name instead
   });
 });
+
 
 app.get("/admin", (req, res) => {
   res.render("admin", {
@@ -33,7 +34,7 @@ app.get("/contact", (req, res) => {
   });
 });
 
-app.get('/get-posts', function(req, res){
+app.get('/posts', function(req, res){
   res.sendFile(__dirname + '/data/posts.json')
 })
 
@@ -46,6 +47,10 @@ app.get('/Blog-Post',function(req,res){
   res.sendFile(__dirname + '/data/posts.json');
 });
 
+app.post('/', function(req, res){
+  res.send(__dirname + '/data/posts.json')
+})
+
 
 // app.post('/endpoint', function(req, res){
 // 	var obj = {};
@@ -54,7 +59,24 @@ app.get('/Blog-Post',function(req,res){
 // });
 
 
-
+app.get('/posts/:id', (req,res) => {
+	let postId = req.params.id;
+	fs.readFile(__dirname + "/data/posts.json", (error,file) => {
+		if (error) {
+			console.log(error);
+		} else {
+			let parsedFile = JSON.parse(file);
+			parsedFile.forEach((post) => {
+				if (post.id === postId) {
+					res.send(post);
+				};		
+			});
+		};
+	});
+});
+     
+    
+   
 
    
   

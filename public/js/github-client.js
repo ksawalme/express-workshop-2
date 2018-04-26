@@ -39,7 +39,7 @@ myButton.addEventListener('click', function() {
     loadRepos('CodeYourFuture');
 });
 
-var myButton = document.querySelector('#btnGetPosts');
+var myButton1 = document.querySelector('#btnGetPosts');
 myButton.addEventListener('click', function(req,res) {
   res.sendFile(__dirname + '/data/posts.json')
 });
