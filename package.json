@@ -20,7 +20,11 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
+<<<<<<< HEAD
     "express": "^4.16.3",
+=======
+    "express": "^4.15.3",
+>>>>>>> 31624507e793f62ff42ef2fad26f8f525e02c58a
     "express-handlebars": "^3.0.0"
   },
   "devDependencies": {
