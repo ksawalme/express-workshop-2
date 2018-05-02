@@ -48,11 +48,7 @@ app.get('/posts', function(req, res){
   res.sendFile(__dirname + '/data/posts.json')
 })
 
-// app.get('/Blog-Post',function(req,res, next){
-//   res.render("Blog-Post");
-//   next()
-//   res.sendFile(__dirname + '/data/posts.json');
-// });
+
 app.get('/Blog-Post',function(req,res){
   res.sendFile(__dirname + '/data/posts.json');
 });
