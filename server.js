@@ -104,13 +104,13 @@ app.post("/posts", (req, res) => {
   fs.readFile(filePath, (err, data) => {
     if (err) throw err;
     var number = parseInt(JSON.parse(data)[0].id) + 1; 
-    var newPost = {
+    var Data = {
       id: number.toString(),
       title: req.body.title,
       summary: req.body.summary,
       content: req.body.content
     };
-    savePost(newPost);
+    savePost(Data);
     res.redirect("/admin");
   });
 });
