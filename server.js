@@ -1,13 +1,23 @@
-const exphbs = require("express-handlebars");
-const fs = require("fs")
 
+
+const exphbs = require("express-handlebars");
 const express = require("express");
 const app = express();
-const router = express.Router();
-const bodyParser = require('body-parser')
-// Then these two lines after you initialise your express app
+const fs = require('fs');
+const filePath = __dirname + "/data/posts.json";
+const savePost = require('./helpers/savePost');
+const readPosts = require('./helpers/readPosts');
+
+
+app.use(express.static("public"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // very impoetant to save the data
+
 
 app.get("/", (req, res) => {
   res.render("index", {
@@ -47,10 +57,6 @@ app.get('/Blog-Post',function(req,res){
   res.sendFile(__dirname + '/data/posts.json');
 });
 
-app.post('/', function(req, res){
-  res.send(__dirname + '/data/posts.json')
-})
-
 
 // app.post('/endpoint', function(req, res){
 // 	var obj = {};
@@ -75,23 +81,60 @@ app.get('/posts/:id', (req,res) => {
 	});
 });
      
-    
-   
 
-   
-  
+
+
+
+// app.post("/admin", function(req, res) {
+//   console.log(req.fields);
+//   fs.readFile(__dirname + "/data/posts.json", function(error, file) {
+//        parsedFile = JSON.parse(file);
+//       console.log(parsedFile);
+//       fs.writeFile(__dirname + "/data/posts.json",JSON.stringify(parsedFile), function(error) {
       
-    
-    
-    
- 
+//       });
 
-// The extensions 'html' allows us to serve file without adding .html at the end 
-// i.e /my-cv will server /my-cv.html
-app.use(express.static("public", { 'extensions': ['html'] }));
+//   });
+
+// });
+
+// *****************
+
+app.post("/posts", (req, res) => {
+  fs.readFile(filePath, (err, data) => {
+    if (err) throw err;
+    var number = parseInt(JSON.parse(data)[0].id) + 1; 
+    var newPost = {
+      id: number.toString(),
+      title: req.body.title,
+      summary: req.body.summary,
+      content: req.body.content
+    };
+    savePost(newPost);
+    res.redirect("/admin");
+  });
+});
+
+// *****************
 
 
-// what does this line mean: process.env.PORT || 3000
+// another METHODS
+
+// app.post("/posts", (req, res) => {
+
+
+//   var title= req.body.title;
+//   var summary= req.body.summary;
+//   var content= req.body.content
+
+//     res.send(title + ' ' + summary + ' ' + content);
+
+// });
+
+
+
+
+
 app.listen(process.env.PORT || 3000, function() {
   console.log("Server is listening on port 3000. Ready to accept requests!");
 });
